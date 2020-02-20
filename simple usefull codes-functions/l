@@ -1,0 +1,79 @@
+#include <iostream>
+#include <vector>
+
+/* THIS PROGRAM CALCULATE EXTRA LONG FACTORIALS */
+
+using namespace std;
+
+void extraLongFactorials(int n) {
+    vector <int> fac1, fac2;
+    int m = n-1;
+    while(n>10){
+        fac1.push_back(n%10);
+        n/=10;
+    }
+    fac1.push_back(n);
+
+    int elde = 0;
+    int k; 
+	int sel, i;
+    while(m>1){
+        for(i=0; i<fac1.size(); i++){
+            k = m*fac1[i] + elde;
+            fac2.push_back(k%10);
+            elde = k/10;
+            if(i==fac1.size()-1){
+                while(elde>10){
+                    fac2.push_back(elde%10);
+                    elde/=10;
+                }
+            if(elde!=0) fac2.push_back(elde);
+            }
+        }
+        m--;
+        sel=2;
+        elde = 0;
+        fac1.clear();
+        if(m==1){
+            break;
+        }
+        for(i=0; i<fac2.size(); i++){
+            k = m*fac2[i] + elde;
+            fac1.push_back(k%10);
+            elde = k/10;
+            if(i==fac2.size()-1){
+                while(elde>10){
+                    fac1.push_back(elde%10);
+                    elde/=10;
+                }
+            if(elde!=0) fac1.push_back(elde);
+            }
+        }
+        m--;
+        sel=1;
+        elde = 0;
+        fac2.clear();
+    }
+
+    if(sel == 1){
+        for(i =fac1.size()-1; i>=0; i--){
+            cout<<fac1[i];
+        }
+    }
+    else{
+        for(i =fac2.size()-1; i>=0; i--){
+            cout<<fac2[i];
+        }
+    }
+}
+
+int main()
+{
+    int n;
+    cin >> n;
+   
+    extraLongFactorials(n);
+
+    return 0;
+}
+

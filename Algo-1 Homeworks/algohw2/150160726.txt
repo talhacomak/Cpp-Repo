@@ -1,0 +1,4 @@
+this is program is compile like that:
+	g++ 150160726.cpp -o your_executable_file
+this program is run like that:
+	./your_executable_file events_file_name
