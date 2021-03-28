@@ -13,22 +13,26 @@ char* get_word(char* s, int n){
 	
 	for(i=0; i<30; i++){
 		word[i]='\0';
-	}
-	
-	for(i=0; i<200; i++){
 		if(word_num == n) break;
 		if(*(s+i) == ' '){
+			word_num ++;
+		}
+	}
+	
+	for(; i<200; i++){
+		if(word_num == n) break;
+		if(*(s+i) == 32){
 			word_num ++;
 		}
 	}
 	i--;
 	for(j=0; j<50; j++){
 		i++;
-		if(s[i] == ' ') break;
+		if(s[i] == 32) break;
 		else if(s[i] == '\n') break;
 		else word[j] = s[i];
 	}
-	word[j] = ' ';
+	word[j] = 32;
 	return word;
 }
 
@@ -46,31 +50,21 @@ int main(int argc, char** argv){
 	struct instruction_s* instruc;
 	
 	char sentence[10000];
-	for(i=0; i<10000; i++){
-		sentence[i]='\0';
-	}
-	
 	char** book = (char**) malloc(10000*sizeof(char*));
-	for(i=0; i<10000; i++){
-		book[i] = (char*) malloc(200*sizeof(char));
-		for(j=0; j<200; j++){
-			book[i][j]='\0';
-		}
-	}
-	
 	char** book2 = (char**) malloc(10000*sizeof(char*));
-	for(i=0; i<10000; i++){
-		book2[i] = (char*) malloc(200*sizeof(char));
-		for(j=0; j<200; j++){
-			book2[i][j]='\0';
-		}
-	}
-	
 	char** ins = (char**) malloc(10000*sizeof(char*));
 	for(i=0; i<10000; i++){
+		sentence[i]= 0;
 		ins[i] = (char*) malloc(13*sizeof(char));
 		for(j=0; j<12; j++){
 			ins[i][j]='\0';
+		}
+		
+		book[i] = (char*) malloc(200*sizeof(char));
+		book2[i] = (char*) malloc(200*sizeof(char));
+		for(j=0; j<200; j++){
+			book[i][j]='\0';
+			book2[i][j]='\0';
 		}
 	}
 
@@ -106,8 +100,7 @@ int main(int argc, char** argv){
 		for(i=0; i<10000; i++){
 			if(feof(ptr_ins)) break;
 			fgets(ins[i], 13, ptr_ins);
-			if(ins[i][0] == '\n') break;
-			if(ins[i][0] == '\0') break;
+			if(ins[i][0] == '\n' || ins[i][0] == '\0') break;
 			size_line2++;
 		}
 	}
